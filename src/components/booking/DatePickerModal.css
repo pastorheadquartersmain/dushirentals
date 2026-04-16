@@ -1,0 +1,363 @@
+/* ── Overlay ─────────────────────────────────────────────────────────────── */
+.date-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  animation: date-modal-overlay-in 0.25s ease forwards;
+}
+
+.date-modal-overlay--closing {
+  animation: date-modal-overlay-out 0.22s ease forwards;
+}
+
+.date-modal-overlay--closing .date-modal {
+  animation: date-modal-card-out 0.22s ease forwards;
+}
+
+@keyframes date-modal-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes date-modal-overlay-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ── Modal card ──────────────────────────────────────────────────────────── */
+.date-modal {
+  width: 90%;
+  max-width: 420px;
+  background: rgba(28, 26, 24, 0.92);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.6),
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+  animation: date-modal-card-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes date-modal-card-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes date-modal-card-out {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(6px);
+  }
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.date-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 24px 0;
+}
+
+.date-modal__eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 138, 76, 0.9);
+  margin: 0 0 4px;
+}
+
+.date-modal__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.96);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.date-modal__close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+  margin-top: 2px;
+}
+
+.date-modal__close-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+/* ── Calendar body ───────────────────────────────────────────────────────── */
+.date-modal__body {
+  padding: 8px 20px 0;
+}
+
+/* react-day-picker override — let it fill the card */
+.date-modal__body .rdp-modal-root {
+  width: 100%;
+  max-width: 100%;
+  --rdp-font-family: var(--font-body, 'Inter', 'Segoe UI', sans-serif);
+}
+
+.date-modal__body .rdp-modal-root,
+.date-modal__body .rdp-modal-root :where(*) {
+  font-family: var(--font-body, 'Inter', 'Segoe UI', sans-serif);
+  box-sizing: border-box;
+}
+
+.date-modal__body .rdp-months {
+  width: 100%;
+}
+
+.date-modal__body .rdp-month {
+  width: 100%;
+}
+
+.date-modal__body .rdp-month_caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 4px 10px;
+}
+
+.date-modal__body .rdp-caption_label {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.date-modal__body .rdp-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.date-modal__body .rdp-button_previous,
+.date-modal__body .rdp-button_next {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.65);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.18s ease;
+}
+
+.date-modal__body .rdp-button_previous:hover,
+.date-modal__body .rdp-button_next:hover {
+  color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Weekday header */
+.date-modal__body .rdp-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.date-modal__body .rdp-weekday {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  text-align: center;
+  padding: 4px 0;
+}
+
+/* Day grid */
+.date-modal__body .rdp-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.date-modal__body .rdp-day {
+  text-align: center;
+  padding: 2px;
+}
+
+.date-modal__body .rdp-day_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  margin: 0 auto;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.875rem;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.date-modal__body .rdp-day_button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.96);
+  transform: scale(1.1);
+}
+
+/* Selected */
+.date-modal__body .rdp-selected .rdp-day_button,
+.date-modal__body .rdp-day_button[aria-pressed='true'] {
+  background: linear-gradient(135deg, #ff8a4c, #ff6a2c) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(255, 106, 44, 0.45);
+  transform: none;
+}
+
+/* Today */
+.date-modal__body .rdp-today .rdp-day_button {
+  border: 1px solid rgba(255, 138, 76, 0.7);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Disabled */
+.date-modal__body .rdp-disabled .rdp-day_button {
+  opacity: 0.2;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Outside (prev / next month days) */
+.date-modal__body .rdp-outside .rdp-day_button {
+  opacity: 0.28;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.date-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px 24px;
+  gap: 12px;
+}
+
+.date-modal__clear-btn {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.64);
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.date-modal__clear-btn:hover {
+  border-color: rgba(255, 255, 255, 0.32);
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.date-modal__confirm-btn {
+  flex: 1;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff8a4c, #ff6228);
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(255, 106, 44, 0.38);
+  transition: all 0.18s ease;
+}
+
+.date-modal__confirm-btn:hover {
+  background: linear-gradient(135deg, #ff9a62, #ff7238);
+  box-shadow: 0 10px 28px rgba(255, 106, 44, 0.5);
+  transform: translateY(-1px);
+}
+
+.date-modal__confirm-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .date-modal {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 24px 24px 0 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .date-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  @keyframes date-modal-card-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes date-modal-card-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+
+  .date-modal__body .rdp-day_button {
+    width: 36px;
+    height: 36px;
+  }
+}

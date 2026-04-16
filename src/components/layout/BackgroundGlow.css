@@ -1,0 +1,38 @@
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-glow__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.4;
+}
+
+.bg-glow__orb--1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(212, 132, 90, 0.12), transparent 70%);
+  top: -10%;
+  right: -5%;
+}
+
+.bg-glow__orb--2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(232, 168, 124, 0.14), transparent 70%);
+  top: 40%;
+  left: -10%;
+}
+
+.bg-glow__orb--3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(235, 228, 220, 0.55), transparent 70%);
+  bottom: 10%;
+  right: 20%;
+}

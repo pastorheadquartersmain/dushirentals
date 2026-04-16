@@ -1,0 +1,13 @@
+.all-fleet-page__header {
+  text-align: center;
+  padding-bottom: 0;
+}
+
+.all-fleet-page__header .section-subtitle {
+  margin: 0 auto;
+}
+
+.all-fleet-page__filters {
+  margin-bottom: var(--space-12);
+}
+

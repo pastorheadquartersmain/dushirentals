@@ -1,0 +1,26 @@
+.fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  will-change: opacity;
+}
+
+.fleet-grid__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  padding: var(--space-12) 0;
+}
+
+@media (max-width: 1024px) {
+  .fleet-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .fleet-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,203 @@
+.contact-page {
+  padding-top: var(--header-height);
+}
+
+.contact-page__hero {
+  text-align: center;
+  padding: var(--space-20) 0 var(--space-12);
+}
+
+.contact-page__hero .section-subtitle {
+  margin: 0 auto;
+}
+
+.contact-page__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  padding-bottom: var(--space-16);
+}
+
+.contact-page__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.contact-page__info-card {
+  padding: var(--space-6);
+}
+
+.contact-page__info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.contact-page__info-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+.contact-page__info-text h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.contact-page__info-text p,
+.contact-page__info-text a {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.contact-page__info-text a:hover {
+  color: var(--color-accent);
+}
+
+.contact-page__hours {
+  padding: var(--space-6);
+}
+
+.contact-page__hours h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.contact-page__hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.contact-page__hours-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+}
+
+.contact-page__hours-day {
+  color: var(--color-text-secondary);
+}
+
+.contact-page__hours-time {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.contact-page__form-card {
+  padding: var(--space-8);
+}
+
+.contact-page__form-card h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.contact-page__form-card > p {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+.contact-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.contact-page__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.contact-page__textarea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.contact-page__textarea label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.contact-page__textarea textarea {
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  min-height: 120px;
+  resize: vertical;
+  transition: border-color var(--transition-base);
+}
+
+.contact-page__textarea textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.contact-page__textarea textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.contact-page__map {
+  margin-top: var(--space-2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  aspect-ratio: 16 / 9;
+}
+
+.contact-page__map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.contact-page__map-section {
+  padding-bottom: var(--space-20);
+}
+
+.contact-page__map-section h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-6);
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .contact-page__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-page__form-row {
+    grid-template-columns: 1fr;
+  }
+  .contact-page__hero {
+    padding: var(--space-12) 0 var(--space-8);
+  }
+}

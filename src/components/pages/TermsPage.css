@@ -1,0 +1,43 @@
+.terms-page {
+  padding-top: var(--header-height);
+}
+
+.terms-page__hero {
+  text-align: center;
+  padding: var(--space-20) 0 var(--space-12);
+}
+
+.terms-page__hero .section-subtitle {
+  margin: 0 auto;
+}
+
+.terms-page__content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding-bottom: var(--space-20);
+}
+
+.terms-page__card {
+  padding: var(--space-8);
+}
+
+.terms-page__updated {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+}
+
+.terms-page__sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .terms-page__card {
+    padding: var(--space-5);
+  }
+  .terms-page__hero {
+    padding: var(--space-12) 0 var(--space-8);
+  }
+}

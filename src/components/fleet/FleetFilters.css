@@ -1,0 +1,40 @@
+.fleet-filters {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+}
+
+.fleet-filters__pill {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.fleet-filters__pill:hover {
+  border-color: var(--color-border-light);
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.fleet-filters__pill--active {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.fleet-filters__pill--active:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+}

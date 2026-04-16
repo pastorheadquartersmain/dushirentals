@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "question": "Are the vehicles automatic or manual? And do they have AC?",
+    "answer": "All our vehicles have automatic transmissions provided with full air-conditioning and a Bluetooth connection system."
+  },
+  {
+    "id": 2,
+    "question": "Are there any additional fees when renting a car?",
+    "answer": "You can relax and be certain that there are no hidden fees when renting a car at Dushi Rentals Curaçao. The prices include third-party insurance. Taxes (9%) are charged at checkout — no further additional fees."
+  },
+  {
+    "id": 3,
+    "question": "Can I get my rental delivered at the Curaçao Airport?",
+    "answer": "Yes, we offer FREE drop-off and pick-up at the Curaçao Airport. After completing your reservation you will receive an instruction document on where to meet our representative who will have your rental ready."
+  },
+  {
+    "id": 4,
+    "question": "What do I need to rent a car?",
+    "answer": "Each person who intends to drive must bring a valid driver's license and a valid means of payment (generally via credit card). All items must be submitted on the day the car will be picked up."
+  },
+  {
+    "id": 5,
+    "question": "What payment methods do you accept?",
+    "answer": "Dushi Rentals Curaçao accepts credit cards such as Visa, Maestro and American Express. If \"Pay later\" is selected, we also accept cash on delivery."
+  },
+  {
+    "id": 6,
+    "question": "What insurance is included?",
+    "answer": "All vehicles include basic third-party insurance. You can also opt for additional coverage: Premium Protection ($19/day, $0 responsibility), Intermediate Protection ($10/day, $400 responsibility), or Standard Protection ($6/day, $850 responsibility)."
+  },
+  {
+    "id": 7,
+    "question": "What is the minimum rental period?",
+    "answer": "The minimum rental period at Dushi Rentals Curaçao is four days. There is no maximum — rent for as long as you need!"
+  },
+  {
+    "id": 8,
+    "question": "Can I cancel or modify my reservation?",
+    "answer": "Yes, you can cancel your reservation per our terms & conditions. For modifications, please email us at info@dushirentalscuracao.com with your changes."
+  }
+]

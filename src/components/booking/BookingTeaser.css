@@ -1,0 +1,227 @@
+/* ── Booking teaser wrapper ──────────────────────────────────────────────── */
+.booking-teaser {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-2);
+}
+
+/* Hero context — stronger glass + edge contrast */
+.hero .booking-teaser {
+  background: rgba(12, 10, 8, 0.55) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.booking-teaser__label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+}
+
+/* ── Fields row ──────────────────────────────────────────────────────────── */
+.booking-teaser__fields {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+/* ── Clickable field containers ──────────────────────────────────────────── */
+.booking-teaser__field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 110px;
+  cursor: pointer;
+  padding: var(--space-2);
+  margin: calc(var(--space-2) * -1);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+  position: relative;
+}
+
+/* Car class field needs more room for label text */
+.booking-teaser__field--wide {
+  min-width: 148px;
+}
+
+.booking-teaser__field:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.booking-teaser__field:focus-within {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.booking-teaser__field-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+}
+
+/* ── Date input shell (icon overlay) ────────────────────────────────────── */
+.booking-teaser__input-shell {
+  position: relative;
+}
+
+/* ── Shared input / select base ──────────────────────────────────────────── */
+.booking-teaser__input,
+.booking-teaser__select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 8px 20px rgba(0, 0, 0, 0.22);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast),
+              box-shadow var(--transition-fast);
+  width: 100%;
+  height: 36px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Extra right padding so text doesn't hide under the calendar icon */
+.booking-teaser__input {
+  padding-right: 42px;
+}
+
+.booking-teaser__input:focus,
+.booking-teaser__select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
+  box-shadow: 0 0 0 3px rgba(212, 132, 90, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.booking-teaser__input:hover,
+.booking-teaser__select:hover {
+  border-color: rgba(255, 255, 255, 0.26);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.09));
+}
+
+/* ── Calendar icon button ────────────────────────────────────────────────── */
+.booking-teaser__calendar-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.booking-teaser__calendar-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.booking-teaser__calendar-icon:hover,
+.booking-teaser__field:hover .booking-teaser__calendar-icon,
+.booking-teaser__field:focus-within .booking-teaser__calendar-icon {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.booking-teaser__calendar-icon:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(212, 132, 90, 0.2);
+}
+
+.booking-teaser__calendar-icon:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+/* ── Select chevron ──────────────────────────────────────────────────────── */
+.booking-teaser__select {
+  padding-right: var(--space-6);
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.booking-teaser__select option {
+  background: #1a1714;
+  color: #f5f0eb;
+}
+
+/* ── Date input (text type, glass context) ───────────────────────────────── */
+.hero .booking-teaser__input {
+  font-family: var(--font-body), 'Inter', 'Segoe UI', sans-serif;
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+}
+
+.hero .booking-teaser__input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.hero .booking-teaser__input:read-only {
+  cursor: pointer;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────────────── */
+.booking-teaser__divider {
+  width: 1px;
+  height: 24px;
+  background: var(--color-border-light);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .booking-teaser__fields {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .booking-teaser__field {
+    flex: 1 1 calc(50% - var(--space-3));
+  }
+
+  .booking-teaser__divider {
+    display: none;
+  }
+
+  .booking-teaser__fields .btn {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .booking-teaser {
+    display: none;
+  }
+}

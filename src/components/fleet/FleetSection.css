@@ -1,0 +1,367 @@
+.fleet-intro {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #faf6f1;
+  padding: var(--space-12) var(--space-6);
+  z-index: 5;
+  overflow: clip;
+}
+
+.fleet-intro__inner {
+  width: 100%;
+  max-width: var(--max-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.fleet-intro__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  z-index: 10;
+  will-change: transform, opacity;
+}
+
+.fleet-intro__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0;
+  will-change: transform, opacity;
+  letter-spacing: -0.02em;
+}
+
+.fleet-intro__subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: rgba(26, 26, 26, 0.55);
+  margin-top: var(--space-3);
+  font-weight: 400;
+  will-change: transform, opacity;
+}
+
+/* ── Featured Cars Row ────────────────────────────────────────────────── */
+.featured-vehicles {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  gap: var(--space-8);
+  position: relative;
+  z-index: 5;
+  margin-bottom: var(--space-10);
+}
+
+.fleet-vehicle {
+  flex: 1;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  min-width: 0;
+  will-change: transform, opacity;
+}
+
+/* ── Large Numerals (Behind Car) ──────────────────────────────────────── */
+.fleet-vehicle__numeral {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  font-family: var(--font-heading);
+  font-size: clamp(8rem, 16vw, 18rem);
+  font-weight: 800;
+  color: rgba(26, 26, 26, 0.04);
+  z-index: 0;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* ── Car Visuals ──────────────────────────────────────────────────────── */
+.fleet-vehicle__wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 5;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fleet-vehicle__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  position: relative;
+  z-index: 5;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.08));
+  transition: filter 0.6s ease;
+}
+
+.fleet-vehicle:hover .fleet-vehicle__wrapper {
+  transform: scale(1.05) translateY(-5px);
+}
+
+.fleet-vehicle:hover .fleet-vehicle__image {
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.12));
+}
+
+/* Sibling dimming on hover */
+.featured-vehicles:hover .fleet-vehicle {
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+}
+
+.featured-vehicles:hover .fleet-vehicle:hover {
+  opacity: 1;
+}
+
+/* ── Floor Shadow ─────────────────────────────────────────────────────── */
+.fleet-vehicle__shadow {
+  position: absolute;
+  bottom: -10px;
+  left: 10%;
+  right: 10%;
+  height: 16px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.12) 0%, transparent 70%);
+  z-index: 1;
+  border-radius: 50%;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fleet-vehicle:hover .fleet-vehicle__shadow {
+  opacity: 1;
+  transform: scale(1.15) translateY(8px);
+}
+
+/* ── Info Text (Below Car) ────────────────────────────────────────────── */
+.fleet-vehicle__info {
+  text-align: center;
+  z-index: 10;
+  padding-top: var(--space-5);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fleet-vehicle:hover .fleet-vehicle__info {
+  transform: translateY(-4px);
+}
+
+.fleet-vehicle__category {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #d4845a;
+  margin: 0 0 6px;
+}
+
+.fleet-vehicle__name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.fleet-vehicle__price {
+  font-size: 0.95rem;
+  color: rgba(26, 26, 26, 0.5);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ── CTA ──────────────────────────────────────────────────────────────── */
+.fleet-intro__cta {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  will-change: transform, opacity;
+}
+
+.fleet-intro__cta-btn {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.fleet-intro__cta-btn:hover {
+  background: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Modal (kept from previous) ──────────────────────────────────────── */
+.car-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: var(--space-4);
+  animation: modal-overlay-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.car-modal-overlay--closing {
+  animation: modal-overlay-out 0.3s ease forwards;
+}
+
+.car-modal {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(30, 30, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.06);
+  position: relative;
+  text-align: center;
+  animation: modal-card-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.car-modal-overlay--closing .car-modal {
+  animation: modal-card-out 0.3s ease forwards;
+}
+
+.car-modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.car-modal__close:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+.car-modal__visual {
+  margin-bottom: var(--space-6);
+}
+
+.car-modal__image {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  border-radius: 16px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.4));
+}
+
+.car-modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.car-modal__category {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.car-modal__title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: #fff;
+  margin: 0 0 16px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.car-modal__desc {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.65);
+  margin: 0 0 32px;
+  line-height: 1.6;
+  max-width: 90%;
+}
+
+.car-modal__price {
+  font-size: 1.6rem;
+  color: #fff;
+  font-weight: 800;
+  margin-bottom: 32px;
+  background: rgba(255,255,255,0.05);
+  padding: 8px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.car-modal__cta {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(212, 132, 90, 0.3);
+}
+
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes modal-card-in {
+  from { opacity: 0; transform: scale(0.94) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes modal-card-out {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 0; transform: scale(0.96) translateY(8px); }
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 992px) {
+  .featured-vehicles {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-12);
+  }
+
+  .fleet-vehicle {
+    max-width: 300px;
+  }
+
+  .fleet-vehicle__wrapper {
+    height: 180px;
+  }
+}
