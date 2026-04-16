@@ -1,309 +1,231 @@
-/* ── Hero Widgets: transparent floating widgets, no card/container ─────────── */
+/* ── Hero Widgets — no card, no container, pure floating text + icon ─────── */
 
 .hero-widgets {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: var(--space-1);
-  text-align: right;
+  gap: 6px;
   color: rgba(255, 255, 255, 0.95);
   user-select: none;
+  transform: scale(0.9);
+  transform-origin: top right;
 }
 
-/* ── Clock ──────────────────────────────────────────────────────────────────── */
-.hw-time {
-  font-size: clamp(2.8rem, 4vw, 4.5rem);
-  font-weight: 200;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow:
-    0 2px 14px rgba(0, 0, 0, 0.5),
-    0 0   30px rgba(0, 0, 0, 0.2);
-}
+/* ══════════════════════════════════════════════════════════════════════════════
+   ROW 1 — big clock  |  icon + big temp + unit toggle
+   ══════════════════════════════════════════════════════════════════════════════ */
 
-.hw-location {
-  font-size: var(--text-xs);
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
-  margin-top: var(--space-1);
-}
-
-/* ── Weather container ──────────────────────────────────────────────────────── */
-.hw-weather {
+.hw-main {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-  margin-top: var(--space-4);
-  cursor: default;
+  flex-direction: row;
+  align-items: baseline;        /* clock and temperature share the same baseline */
+  gap: var(--space-8);          /* wider gap pushes time left, giving cloud more presence */
 }
 
-/* ── SVG icon wrapper ───────────────────────────────────────────────────────── */
+/* ── Clock ── */
+.hw-time {
+  font-size: clamp(3rem, 4.2vw, 4.8rem);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow:
+    0 2px 14px rgba(0, 0, 0, 0.55),
+    0 0   28px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Weather group: icon + temp + toggle inline ── */
+.hw-weather-group {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;        /* icon sits on the baseline of the numbers */
+  gap: var(--space-2);
+}
+
+/* Icon sized up — more presence next to the temperature */
 .hw-icon-wrap {
-  width: 88px;
-  height: 88px;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: var(--space-2);
-  transition: filter 0.4s ease;
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.90);
+  align-self: center;
+  margin-bottom: 4px;
+  transition: color 0.4s ease;
 }
 
 .wicon {
   width: 100%;
   height: 100%;
   overflow: visible;
-  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
   transition: filter 0.4s ease;
 }
 
-/* ── Temperature row ────────────────────────────────────────────────────────── */
-.hw-temp-row {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-}
-
+/* ── Temperature number ── */
 .hw-temp {
-  font-size: clamp(2.8rem, 4.5vw, 4.5rem);
+  font-size: clamp(3rem, 4.2vw, 4.8rem);
   font-weight: 200;
   letter-spacing: -0.04em;
   line-height: 1;
   color: rgba(255, 255, 255, 0.96);
   text-shadow:
-    0 2px 14px rgba(0, 0, 0, 0.5),
-    0 0   30px rgba(0, 0, 0, 0.2);
+    0 2px 14px rgba(0, 0, 0, 0.55),
+    0 0   28px rgba(0, 0, 0, 0.2);
 }
 
-.hw-temp--loading {
-  opacity: 0.4;
-}
+.hw-temp--loading { opacity: 0.4; }
 
-/* C/F toggle — borderless, minimal */
+/* ── C/F toggle pill — sits at top of the temp, superscript-style ── */
 .hw-unit-toggle {
-  font-size: var(--text-lg);
+  align-self: flex-start;        /* pull to top of row, not baseline */
+  margin-top: 8px;               /* fine-tune vertical position */
+  font-size: var(--text-base);
   font-weight: 300;
-  letter-spacing: 0;
-  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.5);
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-sm);
-  padding: 3px 7px;
+  padding: 2px 7px;
   cursor: pointer;
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-  margin-top: var(--space-2);
-  line-height: 1.3;
   font-family: inherit;
+  line-height: 1.4;
 }
 
 .hw-unit-toggle:hover {
   color: rgba(255, 255, 255, 0.95);
-  border-color: rgba(255, 255, 255, 0.45);
+  border-color: rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Hi / Lo */
-.hw-hilo {
+/* ══════════════════════════════════════════════════════════════════════════════
+   ROW 2 — location (left)  |  hi/lo · condition (right)
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+.hw-sub {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--space-5);
+}
+
+.hw-location {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.48);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+.hw-meta {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   font-size: var(--text-sm);
   font-weight: 300;
-  margin-top: 2px;
 }
 
-.hw-hi  { color: rgba(255, 170, 70, 0.9); }
-.hw-sep { color: rgba(255, 255, 255, 0.2); font-size: var(--text-xs); }
-.hw-lo  { color: rgba(140, 210, 255, 0.9); }
-
-/* Condition label */
-.hw-label {
-  font-size: var(--text-sm);
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.6);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
-  margin-top: var(--space-1);
-}
+.hw-hi   { color: rgba(255, 170, 70, 0.9); }
+.hw-lo   { color: rgba(140, 210, 255, 0.9); }
+.hw-dot  { color: rgba(255, 255, 255, 0.2); font-size: 10px; }
+.hw-label { color: rgba(255, 255, 255, 0.55); }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   HOVER ANIMATIONS — each condition triggers on .hw-weather:hover
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════════════
+   HOVER ANIMATIONS — trigger on .hw-weather-group:hover
+   ══════════════════════════════════════════════════════════════════════════════ */
 
-/* ── SUNNY ── rays spin, core glows warm ────────────────────────────────────── */
-
+/* ── SUNNY ── */
 .wicon__rays {
   transform-origin: 50px 50px;
   will-change: transform;
 }
-
 .wicon__sun-core {
   transform-origin: 50px 50px;
   will-change: transform, opacity;
 }
 
-.hw-weather--sunny:hover .hw-icon-wrap {
-  color: rgba(255, 220, 80, 0.95);
-}
+.hw-weather--sunny:hover .hw-icon-wrap { color: rgba(255, 220, 80, 0.95); }
 
 .hw-weather--sunny:hover .wicon--sunny {
-  filter:
-    drop-shadow(0 0 18px rgba(255, 200, 50, 0.75))
-    drop-shadow(0 3px 10px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 0 14px rgba(255, 200, 50, 0.7)) drop-shadow(0 2px 8px rgba(0,0,0,0.35));
 }
 
-.hw-weather--sunny:hover .wicon__rays {
-  animation: sun-spin 9s linear infinite;
-}
+.hw-weather--sunny:hover .wicon__rays     { animation: sun-spin  9s linear       infinite; }
+.hw-weather--sunny:hover .wicon__sun-core { animation: sun-pulse 2.2s ease-in-out infinite; }
 
-.hw-weather--sunny:hover .wicon__sun-core {
-  animation: sun-pulse 2.2s ease-in-out infinite;
-}
-
-@keyframes sun-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes sun-pulse {
-  0%,  100% { transform: scale(1);    opacity: 0.95; }
-  50%       { transform: scale(1.06); opacity: 1; }
-}
+@keyframes sun-spin  { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes sun-pulse { 0%,100%{ transform: scale(1); opacity:.95; } 50%{ transform: scale(1.07); opacity:1; } }
 
 
-/* ── PARTLY CLOUDY ── sun peeks out, cloud shifts ───────────────────────────── */
-
-.wicon__sun-bg {
-  will-change: transform, opacity;
-}
-
-.wicon__sun-core-sm {
-  transform-origin: 74px 20px;
-  will-change: transform;
-}
-
-.wicon__rays-sm {
-  transform-origin: 74px 20px;
-  will-change: transform;
-}
+/* ── PARTLY CLOUDY ── */
+.wicon__sun-bg     { will-change: transform, opacity; }
+.wicon__sun-core-sm { transform-origin: 74px 20px; will-change: transform; }
+.wicon__rays-sm    { transform-origin: 74px 20px; will-change: transform; }
 
 .hw-weather--partly-cloudy:hover .wicon--partly-cloudy {
-  filter:
-    drop-shadow(0 0 10px rgba(255, 200, 50, 0.4))
-    drop-shadow(0 3px 10px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 0 10px rgba(255,200,50,.4)) drop-shadow(0 2px 8px rgba(0,0,0,.35));
 }
+.hw-weather--partly-cloudy:hover .wicon__sun-bg  { animation: sun-peek   3s ease-in-out infinite; }
+.hw-weather--partly-cloudy:hover .wicon__rays-sm { animation: sun-spin   7s linear      infinite; }
+.hw-weather--partly-cloudy:hover .wicon__cloud   { animation: cloud-drift 3s ease-in-out infinite; }
 
-.hw-weather--partly-cloudy:hover .wicon__sun-bg {
-  animation: sun-peek 3s ease-in-out infinite;
-}
-
-.hw-weather--partly-cloudy:hover .wicon__rays-sm {
-  animation: sun-spin 7s linear infinite;
-}
-
-.hw-weather--partly-cloudy:hover .wicon__cloud {
-  animation: cloud-drift 3s ease-in-out infinite;
-}
-
-@keyframes sun-peek {
-  0%,  100% { transform: translateX(0)    translateY(0); }
-  50%       { transform: translateX(-4px) translateY(-3px); }
-}
-
-@keyframes cloud-drift {
-  0%,  100% { transform: translateX(0); }
-  50%       { transform: translateX(5px); }
-}
+@keyframes sun-peek   { 0%,100%{ transform: translateX(0) translateY(0); } 50%{ transform: translateX(-4px) translateY(-3px); } }
+@keyframes cloud-drift{ 0%,100%{ transform: translateX(0); } 50%{ transform: translateX(5px); } }
 
 
-/* ── CLOUDY ── cloud floats gently ──────────────────────────────────────────── */
-
+/* ── CLOUDY ── */
 .hw-weather--cloudy:hover .wicon__cloud {
   animation: cloud-float 3.5s ease-in-out infinite;
   will-change: transform;
 }
-
-@keyframes cloud-float {
-  0%,  100% { transform: translateY(0); }
-  50%       { transform: translateY(-7px); }
-}
+@keyframes cloud-float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-6px); } }
 
 
-/* ── RAINY ── drops fall continuously ───────────────────────────────────────── */
-
+/* ── RAINY ── */
 .wicon__raindrop {
-  transform-box:    fill-box;
+  transform-box: fill-box;
   transform-origin: center;
-  will-change:      transform, opacity;
+  will-change: transform, opacity;
+  opacity: 0.75;
 }
 
-/* Drops are static (no animation) when not hovered */
-.hw-weather--rainy .wicon__raindrop {
-  opacity: 0.7;
-}
-
-/* On hover: drops animate downward with staggered timing */
 .hw-weather--rainy:hover .wicon__raindrop {
   animation: rainfall 0.78s linear infinite;
   animation-delay: calc(var(--i) * 0.13s);
 }
-
-.hw-weather--rainy:hover .wicon__cloud {
-  animation: cloud-float 4s ease-in-out infinite;
-  will-change: transform;
-}
+.hw-weather--rainy:hover .wicon__cloud { animation: cloud-float 4s ease-in-out infinite; }
 
 @keyframes rainfall {
-  0%          { transform: translateY(-10px); opacity: 0; }
-  18%         { opacity: 0.85; }
-  80%         { opacity: 0.85; }
-  100%        { transform: translateY(10px);  opacity: 0; }
+  0%   { transform: translateY(-10px); opacity: 0; }
+  18%  { opacity: .85; }
+  80%  { opacity: .85; }
+  100% { transform: translateY(10px);  opacity: 0; }
 }
 
 
-/* ── THUNDERSTORM ── lightning flashes, cloud darkens ───────────────────────── */
+/* ── THUNDER ── */
+.wicon__lightning { will-change: opacity, filter; }
 
-.wicon__lightning {
-  will-change: opacity, filter;
-}
-
-.hw-weather--thunder:hover .wicon__cloud {
-  animation: cloud-rumble 0.6s ease-in-out infinite;
-  will-change: transform;
-}
-
+.hw-weather--thunder:hover .wicon__cloud    { animation: cloud-rumble   0.6s ease-in-out infinite; }
 .hw-weather--thunder:hover .wicon__lightning {
   animation: lightning-flash 1.6s ease-in-out infinite;
-  color: rgba(255, 240, 100, 1);
-  filter: drop-shadow(0 0 8px rgba(255, 240, 100, 0.9));
+  filter: drop-shadow(0 0 6px rgba(255,240,100,.9));
+  stroke: rgba(255, 240, 100, 1);
 }
-
 .hw-weather--thunder:hover .wicon--thunder {
-  filter:
-    drop-shadow(0 0 12px rgba(255, 240, 100, 0.3))
-    drop-shadow(0 3px 10px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 0 10px rgba(255,240,100,.3)) drop-shadow(0 2px 8px rgba(0,0,0,.35));
 }
 
-@keyframes cloud-rumble {
-  0%,  100% { transform: translateX(0); }
-  25%       { transform: translateX(-2px); }
-  75%       { transform: translateX(2px); }
-}
-
-@keyframes lightning-flash {
-  0%, 45%, 55%, 100% { opacity: 1; }
-  48%                { opacity: 0.05; }
-  52%                { opacity: 0.05; }
-}
+@keyframes cloud-rumble    { 0%,100%{ transform:translateX(0); } 25%{ transform:translateX(-2px); } 75%{ transform:translateX(2px); } }
+@keyframes lightning-flash { 0%,45%,55%,100%{ opacity:1; } 48%,52%{ opacity:.04; } }
 
 
-/* ── Responsive ─────────────────────────────────────────────────────────────── */
+/* ── Responsive ── */
 @media (max-width: 1024px) {
-  /* hero__right is hidden at this breakpoint — widget auto-hides */
-  .hero-widgets {
-    display: none;
-  }
+  .hero-widgets { display: none; }
 }

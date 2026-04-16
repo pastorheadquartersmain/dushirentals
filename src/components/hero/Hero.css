@@ -129,13 +129,14 @@
   filter: blur(20px);
 }
 
-/* Right column — weather + time widgets, floating, no background */
+/* Right column — snapped to the top of the grid, sits directly below header */
 .hero__right {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: center;
-  padding-top: var(--space-8);  /* slight push below header */
+  justify-content: flex-start;
+  align-self: flex-start;       /* override grid's align-items: center */
+  padding-top: 0;               /* header offset already handled by .hero__content */
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */
