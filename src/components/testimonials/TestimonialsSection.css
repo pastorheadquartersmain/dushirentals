@@ -1,3 +1,11 @@
+.testimonials-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-page);
+}
+
 .testimonials-section__header {
   text-align: center;
   margin-bottom: var(--space-10);

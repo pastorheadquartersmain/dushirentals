@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import usePrefersReducedMotion from '../../app/hooks/usePrefersReducedMotion';
@@ -9,32 +9,66 @@ import './TestimonialsSection.css';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function TestimonialsSection() {
-  const sectionRef = useRef(null);
+  const sectionRef  = useRef(null);
+  const timelineRef = useRef(null);
+  const firedRef    = useRef(false);
   const reducedMotion = usePrefersReducedMotion();
 
   useLayoutEffect(() => {
     if (reducedMotion || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const header = Array.from(sectionRef.current.querySelectorAll('.testimonials-section__header > *'));
-      const cards = Array.from(sectionRef.current.querySelectorAll('.testimonial-card'));
+      const section = sectionRef.current;
+      const header  = Array.from(section.querySelectorAll('.testimonials-section__header > *'));
+      const cards   = Array.from(section.querySelectorAll('.testimonial-card'));
 
       gsap.set(header, { opacity: 0, y: 35 });
-      gsap.set(cards, { opacity: 0, y: 40 });
+      gsap.set(cards,  { opacity: 0, y: 40 });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      });
+      const tl = gsap.timeline({ paused: true });
 
       tl.to(header, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' })
-        .to(cards, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' }, '-=0.25');
+        .to(cards,  { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' }, '-=0.25');
+
+      timelineRef.current = tl;
+
+      // Fallback: if user scrolls here directly (without benefits event), play on enter
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 75%',
+        once: true,
+        onEnter: () => {
+          if (!firedRef.current) {
+            firedRef.current = true;
+            tl.play();
+          }
+        },
+      });
     }, sectionRef);
 
     return () => ctx.revert();
+  }, [reducedMotion]);
+
+  // Listen for benefits events
+  useEffect(() => {
+    if (reducedMotion) return;
+
+    const onBenefitsLeave = () => {
+      firedRef.current = true;
+      timelineRef.current?.play();
+    };
+
+    const onBenefitsEnter = () => {
+      firedRef.current = false;
+      timelineRef.current?.reverse();
+    };
+
+    document.addEventListener('benefits:leave', onBenefitsLeave);
+    document.addEventListener('benefits:enter', onBenefitsEnter);
+    return () => {
+      document.removeEventListener('benefits:leave', onBenefitsLeave);
+      document.removeEventListener('benefits:enter', onBenefitsEnter);
+    };
   }, [reducedMotion]);
 
   return (

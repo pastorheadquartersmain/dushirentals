@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import DevHUD from '../components/dev/DevHUD';
 import { Routes, Route } from 'react-router-dom';
 import { UIProvider } from './context/UIContext';
 import PageShell from '../components/layout/PageShell';
@@ -45,6 +46,8 @@ function HomePage() {
 
 export default function App() {
   return (
+    <>
+      {import.meta.env.DEV && <DevHUD />}
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/fleet" element={<AllFleetPage />} />
@@ -56,5 +59,6 @@ export default function App() {
       <Route path="/reservations" element={<ReservationPage />} />
       <Route path="/fleet/:category" element={<VehicleDetailPage />} />
     </Routes>
+    </>
   );
 }
