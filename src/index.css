@@ -96,11 +96,39 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Fallback only — visible for a single paint before body renders. */
+  background: var(--color-bg-page);
 }
 
+/*
+ * Continuous page gradient (Phase 1 of motion redesign)
+ * -----------------------------------------------------
+ * A single 180deg gradient spans the entire document height. Sections no
+ * longer paint their own backgrounds — they sit transparent on top of this
+ * gradient. The temperature cools as the user scrolls: cream → warm sand →
+ * taupe → warm-dark transition → charcoal → deep charcoal. This eliminates
+ * the perpendicular hard edges that used to chop the page into chapters.
+ *
+ * Stops are percentage-of-document-height, so they scale with page length.
+ * A nonlinear `background-attachment: scroll` (default) keeps the gradient
+ * pinned to the document, not the viewport — every scroll position sees its
+ * own slice, which is exactly the effect we want.
+ */
 body {
   font-family: var(--font-body);
-  background-color: var(--color-bg);
+  /* Gradient fills the document box (default scroll attachment), so every
+     scroll position reveals a different slice — 0% at hero, 100% at footer. */
+  background: linear-gradient(
+    180deg,
+    #faf6f1 0%,
+    #faf6f1 25%,   /* hold cream through hero */
+    #f3ede6 42%,   /* warm sand for fleet + benefits */
+    #ede5d8 60%,   /* hold light taupe through testimonials — review legibility */
+    #5c4e42 70%,   /* warm dark transition AFTER testimonials */
+    #1c1814 78%,   /* charcoal at FAQ */
+    #0f0c0a 100%   /* deep charcoal at close */
+  );
+  background-repeat: no-repeat;
   color: var(--color-text-primary);
   line-height: 1.6;
   overflow-x: hidden;

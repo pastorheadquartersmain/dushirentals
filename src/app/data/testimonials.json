@@ -3,21 +3,56 @@
     "id": 1,
     "name": "Dr. F. Towne Allen",
     "rating": 5,
-    "text": "Excellent service! The car was delivered right to our hotel. It was spotless and in perfect condition. The team even gave us recommendations for the best local beaches. Would absolutely rent with Dushi again!",
+    "text": "Excellent service! The car was delivered right to our hotel, spotless and in perfect condition. The team even gave us recommendations for the best local beaches. Would absolutely rent with Dushi again.",
     "avatar": null
   },
   {
     "id": 2,
     "name": "Akeisha Mcgee",
     "rating": 5,
-    "text": "Super easy booking process and excellent communication throughout. The car was exactly as described and the pickup at the airport was seamless. Made our Curaçao trip so much more enjoyable!",
+    "text": "Super easy booking process and excellent communication throughout. The car was exactly as described and the pickup at the airport was seamless. Made our Curaçao trip so much more enjoyable.",
     "avatar": null
   },
   {
     "id": 3,
     "name": "Hügel",
     "rating": 5,
-    "text": "Quick check-in, took less than 5 minutes! When we had a flat tire, their support team responded immediately and helped us get back on the road. That's the kind of service you can't find everywhere.",
+    "text": "Quick check-in, took less than 5 minutes. When we had a flat tire, their support team responded immediately and helped us get back on the road. That's the kind of service you can't find everywhere.",
+    "avatar": null
+  },
+  {
+    "id": 4,
+    "name": "Marieke van der Berg",
+    "rating": 5,
+    "text": "Booked from Amsterdam, picked up in Willemstad. Everything ran like clockwork. The Honda Jazz was perfect for the narrow streets of Otrobanda and easy on fuel. Highly recommend.",
+    "avatar": null
+  },
+  {
+    "id": 5,
+    "name": "James Patterson",
+    "rating": 5,
+    "text": "Rented for a week with my wife. Got a free upgrade to an SUV which made the drive to Shete Boka a joy. Communication via WhatsApp was instant. These guys really care.",
+    "avatar": null
+  },
+  {
+    "id": 6,
+    "name": "Sofía Rodriguez",
+    "rating": 5,
+    "text": "Hands down the best rental experience I've ever had. No long lines, no hidden fees, no upsells. They drop you the keys, you drive, you bring it back. That's it.",
+    "avatar": null
+  },
+  {
+    "id": 7,
+    "name": "Lars Janssen",
+    "rating": 5,
+    "text": "Vierde keer bij Dushi gehuurd. Nooit tegenslag, altijd een schone auto, altijd een eerlijke prijs. De familie van mijn vrouw boekt nu ook altijd hier. Top.",
+    "avatar": null
+  },
+  {
+    "id": 8,
+    "name": "Priya & Ravi Sharma",
+    "rating": 5,
+    "text": "We had a flat on day three. Called the number on the dash and someone showed up within thirty minutes with a replacement vehicle. That's the kind of service that turns a holiday around.",
     "avatar": null
   }
 ]

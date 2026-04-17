@@ -1,18 +1,37 @@
+import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Card from '../ui/Card';
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
+import { useSharedMorph } from '../transitions/SharedImageMorph';
 import { formatPrice, slugify } from '../../app/utils/formatting';
 import './FleetCard.css';
 
 export default function FleetCard({ vehicle }) {
   const { id, name, category, pricePerDay, image, seats, bags, transmission, doors, ac } = vehicle;
+  const imgRef = useRef(null);
+  const { beginMorph } = useSharedMorph();
 
   const reserveUrl = `/reservations?vehicle=${encodeURIComponent(slugify(category))}`;
+  const detailUrl = `/fleet/${encodeURIComponent(slugify(category))}`;
+  const targetKey = `vehicle-${slugify(category)}`;
+
+  const handleMorphClick = () => {
+    if (!imgRef.current || !image) return;
+    beginMorph({ sourceEl: imgRef.current, imageSrc: image, targetKey });
+  };
 
   return (
     <Card className="fleet-card" variant="glass">
-      <div className="fleet-card__image-wrapper">
+      <Link
+        to={detailUrl}
+        onClick={handleMorphClick}
+        className="fleet-card__image-wrapper"
+        data-morph-id={id}
+        aria-label={`View details for ${name}`}
+      >
         <img
+          ref={imgRef}
           src={image}
           alt={`${name} - ${category} rental car`}
           className="fleet-card__image"
@@ -21,7 +40,7 @@ export default function FleetCard({ vehicle }) {
         <Badge variant="accent" className="fleet-card__badge">
           {category}
         </Badge>
-      </div>
+      </Link>
 
       <div className="fleet-card__body">
         <div className="fleet-card__header">

@@ -1,7 +1,6 @@
-import { useRef, useLayoutEffect, useEffect } from 'react';
+import { useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import {
   Trophy, Tag, Baby, Settings2, PhoneCall, Car,
 } from 'lucide-react';
@@ -9,13 +8,13 @@ import usePrefersReducedMotion from '../../app/hooks/usePrefersReducedMotion';
 import BenefitCard from './BenefitCard';
 import './BenefitsSection.css';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 const BENEFITS = [
   {
     icon: Trophy,
-    title: 'Outstanding Services',
-    description: "We focus on child safety with appropriate child seats based on age. Your family's comfort is our priority.",
+    title: 'Outstanding Service',
+    description: "We focus on child safety with appropriate seats based on age. Your family's comfort is our priority.",
   },
   {
     icon: Tag,
@@ -25,29 +24,27 @@ const BENEFITS = [
   {
     icon: Baby,
     title: 'Free Child Safety Seats',
-    description: 'Safety is our #1 priority. Child safety seats are available upon request at no extra charge.',
+    description: 'Child safety seats are available upon request at no extra charge. Always included.',
   },
   {
     icon: Settings2,
     title: 'Automatic Transmission',
-    description: 'All vehicles are automatic for ease of use, plus full A/C and Bluetooth connectivity.',
+    description: 'All vehicles are automatic for ease of use, with full A/C and Bluetooth connectivity.',
   },
   {
     icon: PhoneCall,
     title: '24/7 Support',
-    description: "Assistance for flat tires and accidents, with car replacement if necessary. We're always here for you.",
+    description: "Flat tire? Accident? We're always reachable with car replacement if necessary.",
   },
   {
     icon: Car,
-    title: 'Outstanding Vehicle Quality',
-    description: 'As a boutique agency, we maintain a focused fleet of clean, well-maintained, and reliable cars.',
+    title: 'Boutique Fleet Quality',
+    description: 'A focused, clean, well-maintained fleet. Every car is checked before each rental.',
   },
 ];
 
 export default function BenefitsSection() {
-  const sectionRef  = useRef(null);
-  const timelineRef = useRef(null);
-  const firedRef    = useRef(false);
+  const sectionRef = useRef(null);
   const reducedMotion = usePrefersReducedMotion();
 
   useLayoutEffect(() => {
@@ -60,67 +57,31 @@ export default function BenefitsSection() {
       const topRow    = cards.slice(0, 3);
       const bottomRow = cards.slice(3);
 
-      gsap.set(header,    { opacity: 0, y: 35 });
-      gsap.set(topRow,    { opacity: 0, x: -80 });
-      gsap.set(bottomRow, { opacity: 0, x: 80 });
+      gsap.set(header,    { opacity: 0, y: 30 });
+      gsap.set(topRow,    { opacity: 0, x: -60, y: 20 });
+      gsap.set(bottomRow, { opacity: 0, x: 60,  y: 20 });
 
-      const tl = gsap.timeline({ paused: true });
-
-      tl.to(header,    { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' })
-        .to(topRow,    { opacity: 1, x: 0, duration: 0.55, stagger: 0.07, ease: 'power3.out' }, '-=0.25')
-        .to(bottomRow, { opacity: 1, x: 0, duration: 0.55, stagger: 0.07, ease: 'power3.out' }, '-=0.4');
-
-      timelineRef.current = tl;
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: '+=100%',
-        pin: true,
-        anticipatePin: 1,
-        onEnter: () => {
-          if (!firedRef.current) {
-            firedRef.current = true;
-            tl.play();
-          }
+      // Enter-triggered timeline — no pin, no dead scroll. Plays once when the
+      // section's top crosses the 75% viewport line and stays in.
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
         },
-        // User scrolls past benefits → snap to Testimonials at 82.4%
-        onLeave: () => {
-          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-          gsap.to(window, {
-            scrollTo: { y: Math.round(maxScroll * 0.824), autoKill: false },
-            duration: 0.1,
-            ease: 'none',
-            onComplete: () => document.dispatchEvent(new CustomEvent('benefits:leave')),
-          });
-        },
-        onLeaveBack: () => document.dispatchEvent(new CustomEvent('benefits:enter')),
-      });
+      })
+        .to(header, {
+          opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out',
+        })
+        .to(topRow, {
+          opacity: 1, x: 0, y: 0, duration: 0.55, stagger: 0.07, ease: 'power3.out',
+        }, '-=0.2')
+        .to(bottomRow, {
+          opacity: 1, x: 0, y: 0, duration: 0.55, stagger: 0.07, ease: 'power3.out',
+        }, '-=0.45');
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [reducedMotion]);
-
-  // Listen for fleet events — play/reverse timeline
-  useEffect(() => {
-    if (reducedMotion) return;
-
-    const onFleetLeave = () => {
-      firedRef.current = true;
-      timelineRef.current?.play();
-    };
-
-    const onFleetEnter = () => {
-      firedRef.current = false;
-      timelineRef.current?.reverse();
-    };
-
-    document.addEventListener('fleet:leave', onFleetLeave);
-    document.addEventListener('fleet:enter', onFleetEnter);
-    return () => {
-      document.removeEventListener('fleet:leave', onFleetLeave);
-      document.removeEventListener('fleet:enter', onFleetEnter);
-    };
   }, [reducedMotion]);
 
   return (

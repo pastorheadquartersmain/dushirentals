@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Button.css';
 
 export default function Button({
@@ -13,6 +14,16 @@ export default function Button({
   const classes = `btn btn--${variant} btn--${size} ${className}`.trim();
 
   if (href) {
+    // Internal routes go through React Router so the route-transition curtain
+    // fires. External links (tel:, mailto:, http://, //cdn...) stay as <a>.
+    const isInternal = href.startsWith('/') && !href.startsWith('//');
+    if (isInternal) {
+      return (
+        <Link to={href} className={classes} {...props}>
+          {children}
+        </Link>
+      );
+    }
     return (
       <a href={href} className={classes} {...props}>
         {children}

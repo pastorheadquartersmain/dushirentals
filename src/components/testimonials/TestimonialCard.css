@@ -1,3 +1,21 @@
+/* Card surface tuned for legibility on the light-taupe gradient band — more
+   opaque than the default glass so the white panel reads as a real surface,
+   not a wash. */
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(44, 36, 31, 0.06) !important;
+  box-shadow: 0 8px 24px rgba(44, 36, 31, 0.06) !important;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(44, 36, 31, 0.1) !important;
+}
+
 .testimonial-card__inner {
   padding: var(--space-6);
   display: flex;

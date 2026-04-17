@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import Button from '../ui/Button';
 import './Header.css';
@@ -49,12 +49,18 @@ export default function Header() {
   const scrollToSection = (e, href) => {
     e.preventDefault();
     setMobileOpen(false);
-    if (!href.startsWith('#')) {
-      navigate(href);
+    if (href.startsWith('#')) {
+      // Cross-page anchor: if we're not on home, navigate to home with hash.
+      // RouteTransition reads location.hash and scrolls after route swap.
+      if (!isHome) {
+        navigate('/' + href);
+        return;
+      }
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    navigate(href);
   };
 
   const showLight = scrolled || !isHome;
@@ -68,7 +74,7 @@ export default function Header() {
   return (
     <header ref={headerRef} className={headerClasses}>
       <div className="header__inner container">
-        <a href="/" className="header__logo" aria-label="Dushi Rentals Home">
+        <Link to="/" className="header__logo" aria-label="Dushi Rentals Home">
           <img
             src="/hero/dr-logo-nav.png"
             alt="Dushi Rentals Curaçao"
@@ -77,7 +83,7 @@ export default function Header() {
             loading="eager"
             draggable="false"
           />
-        </a>
+        </Link>
 
         <nav className={`header__nav ${mobileOpen ? 'header__nav--open' : ''}`}>
           {NAV_LINKS.map(link => (

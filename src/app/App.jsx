@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react';
 import DevHUD from '../components/dev/DevHUD';
 import { Routes, Route } from 'react-router-dom';
+import RouteTransition from '../components/transitions/RouteTransition';
+import SharedMorphProvider from '../components/transitions/SharedImageMorph';
 import { UIProvider } from './context/UIContext';
 import PageShell from '../components/layout/PageShell';
 import Header from '../components/layout/Header';
@@ -48,17 +50,23 @@ export default function App() {
   return (
     <>
       {import.meta.env.DEV && <DevHUD />}
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/fleet" element={<AllFleetPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/faq" element={<FAQPage />} />
-      <Route path="/terms" element={<TermsPage />} />
-      <Route path="/privacy" element={<PrivacyPage />} />
-      <Route path="/reservations" element={<ReservationPage />} />
-      <Route path="/fleet/:category" element={<VehicleDetailPage />} />
-    </Routes>
+      <RouteTransition>
+        {(displayLocation) => (
+          <SharedMorphProvider>
+            <Routes location={displayLocation}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/fleet" element={<AllFleetPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/faq" element={<FAQPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/reservations" element={<ReservationPage />} />
+              <Route path="/fleet/:category" element={<VehicleDetailPage />} />
+            </Routes>
+          </SharedMorphProvider>
+        )}
+      </RouteTransition>
     </>
   );
 }

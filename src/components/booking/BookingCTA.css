@@ -1,25 +1,42 @@
+.booking-cta-section {
+  /* Background inherited from body gradient — the deepest charcoal at the
+     tail end of the document is earned by the time we reach this section. */
+  background: transparent;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Override section label color on dark background */
+.booking-cta-section .section-label {
+  color: var(--color-accent-light);
+}
+
 .booking-cta__inner {
   position: relative;
   text-align: center;
-  padding: var(--space-16) var(--space-8);
+  padding: var(--space-16) var(--space-12);
   border-radius: var(--radius-xl);
-  background: var(--color-bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
+  max-width: 680px;
+  margin: 0 auto;
 }
 
 .booking-cta__glow {
   position: absolute;
-  top: -50%;
+  top: -60%;
   left: 50%;
   transform: translateX(-50%);
-  width: 600px;
-  height: 400px;
+  width: 700px;
+  height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--color-accent-glow), transparent 60%);
-  filter: blur(80px);
+  background: radial-gradient(circle, rgba(212, 132, 90, 0.22), transparent 65%);
+  filter: blur(60px);
   pointer-events: none;
 }
 
@@ -27,22 +44,25 @@
   font-family: var(--font-heading);
   font-size: var(--text-4xl);
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: #faf6f1;
   margin-bottom: var(--space-4);
   position: relative;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .booking-cta__text {
   font-size: var(--text-lg);
-  color: var(--color-text-secondary);
-  max-width: 550px;
-  margin: 0 auto var(--space-8);
+  color: rgba(250, 246, 241, 0.6);
+  max-width: 500px;
+  margin: 0 auto var(--space-10);
   line-height: 1.7;
   position: relative;
 }
 
 .booking-cta__text strong {
   color: var(--color-accent-light);
+  font-weight: 600;
 }
 
 .booking-cta__actions {
@@ -55,7 +75,7 @@
 
 .booking-cta__phone {
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  color: rgba(250, 246, 241, 0.45);
   transition: color var(--transition-fast);
 }
 

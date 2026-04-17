@@ -10,6 +10,7 @@ import Card from '../ui/Card';
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
 import FleetCard from '../fleet/FleetCard';
+import { useSharedMorph } from '../transitions/SharedImageMorph';
 import fleetData from '../../app/data/fleet.json';
 import { formatPrice, slugify } from '../../app/utils/formatting';
 import './VehicleDetailPage.css';
@@ -31,6 +32,7 @@ export default function VehicleDetailPage() {
   const { category } = useParams();
   const pageRef = useRef(null);
   const reducedMotion = usePrefersReducedMotion();
+  const { isMorphingIn } = useSharedMorph();
 
   const vehicle = fleetData.find(v => slugify(v.category) === category || v.id === category);
   const relatedVehicles = vehicle
@@ -46,9 +48,11 @@ export default function VehicleDetailPage() {
         opacity: 0, y: 10, duration: 0.5, ease: 'power3.out',
       });
 
-      gsap.from('.vehicle-detail__image-card', {
-        opacity: 0, x: -30, duration: 0.7, ease: 'power3.out', delay: 0.1,
-      });
+      if (!isMorphingIn) {
+        gsap.from('.vehicle-detail__image-card', {
+          opacity: 0, x: -30, duration: 0.7, ease: 'power3.out', delay: 0.1,
+        });
+      }
 
       gsap.from('.vehicle-detail__info > *', {
         opacity: 0, y: 20, duration: 0.6, stagger: 0.08, ease: 'power3.out', delay: 0.15,
@@ -106,6 +110,7 @@ export default function VehicleDetailPage() {
                   src={vehicle.image}
                   alt={`${vehicle.name} - ${vehicle.category}`}
                   loading="eager"
+                  data-morph-target={`vehicle-${slugify(vehicle.category)}`}
                 />
               ) : (
                 <div className="vehicle-detail__image-placeholder">

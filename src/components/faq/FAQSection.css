@@ -1,3 +1,22 @@
+.faq-section {
+  /* Background inherited from body gradient — the gradient hits #1c1814 at
+     ~74% of document height, which is exactly where this section sits. */
+  background: transparent;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Override typography for dark background */
+.faq-section .section-title {
+  color: #faf6f1;
+}
+
+.faq-section .section-subtitle {
+  color: rgba(250, 246, 241, 0.6);
+}
+
 .faq-section__header {
   text-align: center;
   margin-bottom: var(--space-10);
@@ -10,10 +29,35 @@
 .faq-section__list {
   max-width: 800px;
   margin: 0 auto;
-  background: var(--color-bg-glass);
+  background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
   padding: var(--space-2) var(--space-6);
+}
+
+/* Override accordion for dark bg */
+.faq-section .accordion {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.faq-section .accordion:last-child {
+  border-bottom: none;
+}
+
+.faq-section .accordion__trigger {
+  color: rgba(250, 246, 241, 0.9);
+}
+
+.faq-section .accordion__trigger:hover {
+  color: var(--color-accent-light);
+}
+
+.faq-section .accordion__icon {
+  color: rgba(250, 246, 241, 0.4);
+}
+
+.faq-section .accordion__body p {
+  color: rgba(250, 246, 241, 0.6);
 }

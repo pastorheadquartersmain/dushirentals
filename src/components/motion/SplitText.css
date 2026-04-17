@@ -1,0 +1,28 @@
+/**
+ * SplitText — masking structure for word-by-word reveals.
+ * Each word lives in an overflow:hidden container; an inner span is
+ * translated out of view initially, then tweened to translateY(0).
+ *
+ * padding-bottom + margin-bottom negation keeps descenders (g, y, p, j, q)
+ * inside the mask without shifting layout.
+ */
+.split-text {
+  /* Inherits all typography from the rendered tag — no reset. */
+}
+
+.split-text__word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
+}
+
+.split-text__inner {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.split-text__space {
+  white-space: pre;
+}

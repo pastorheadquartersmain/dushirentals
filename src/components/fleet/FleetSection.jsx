@@ -1,19 +1,16 @@
-import { useRef, useLayoutEffect, useEffect, useState } from 'react';
+import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { Link } from 'react-router-dom';
 import FeaturedVehicleRow from './FeaturedVehicleRow';
 import CarModal from './CarModal';
 import usePrefersReducedMotion from '../../app/hooks/usePrefersReducedMotion';
 import './FleetSection.css';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function FleetSection() {
-  const sectionRef  = useRef(null);
-  const timelineRef = useRef(null);
-  const firedRef    = useRef(false);
+  const sectionRef = useRef(null);
   const [selectedCar, setSelectedCar] = useState(null);
   const reducedMotion = usePrefersReducedMotion();
 
@@ -27,77 +24,30 @@ export default function FleetSection() {
       const vehicles = Array.from(section.querySelectorAll('.fleet-vehicle'));
       const cta      = section.querySelector('.fleet-intro__cta');
 
-      gsap.set(section,  { opacity: 0, y: 80 });
-      gsap.set(title,    { opacity: 0, y: 35 });
-      gsap.set(subtitle, { opacity: 0, y: 25 });
-      gsap.set(vehicles, { opacity: 0, x: 200 });
-      gsap.set(cta,      { opacity: 0, y: 15 });
+      gsap.set([title, subtitle], { opacity: 0, y: 30 });
+      gsap.set(vehicles, { opacity: 0, x: 180 });
+      gsap.set(cta, { opacity: 0, y: 12 });
 
-      const tl = gsap.timeline({ paused: true });
-
-      tl.to(section, { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out' })
-        .to(title,    { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.4')
-        .to(subtitle, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, '-=0.25')
+      // Enter-triggered timeline — no pin, no dead scroll. The cars cascade
+      // right-to-left as the section's top crosses the 75% viewport line.
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      })
+        .to(title,    { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' })
+        .to(subtitle, { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }, '-=0.2')
         .to(vehicles, {
-          opacity: 1, x: 0, duration: 0.6,
+          opacity: 1, x: 0, duration: 0.55,
           stagger: { each: 0.08, from: 'end' },
           ease: 'power3.out',
-        }, '-=0.2')
-        .to(cta, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, '-=0.15');
-
-      timelineRef.current = tl;
-
-      // Pin holds section while user reads it.
-      // User must scroll past the pin end to trigger snap to Benefits.
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: '+=100%',
-        pin: true,
-        anticipatePin: 1,
-        onEnter: () => {
-          if (!firedRef.current) {
-            firedRef.current = true;
-            tl.play();
-          }
-        },
-        // User scrolls past fleet → snap to Benefits at 60.8%
-        onLeave: () => {
-          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-          gsap.to(window, {
-            scrollTo: { y: Math.round(maxScroll * 0.608), autoKill: false },
-            duration: 0.1,
-            ease: 'none',
-            onComplete: () => document.dispatchEvent(new CustomEvent('fleet:leave')),
-          });
-        },
-        onLeaveBack: () => document.dispatchEvent(new CustomEvent('fleet:enter')),
-      });
+        }, '-=0.1')
+        .to(cta, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }, '-=0.1');
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [reducedMotion]);
-
-  // Listen for hero events — just play/reverse, no chaining
-  useEffect(() => {
-    if (reducedMotion) return;
-
-    const onHeroLeave = () => {
-      firedRef.current = true;
-      timelineRef.current?.play();
-    };
-
-    const onHeroEnter = () => {
-      firedRef.current = false;
-      timelineRef.current?.reverse();
-    };
-
-    document.addEventListener('hero:leave',  onHeroLeave);
-    document.addEventListener('hero:enter',  onHeroEnter);
-    return () => {
-      document.removeEventListener('hero:leave',  onHeroLeave);
-      document.removeEventListener('hero:enter',  onHeroEnter);
-    };
   }, [reducedMotion]);
 
   return (

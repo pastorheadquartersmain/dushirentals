@@ -5,7 +5,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #faf6f1;
+  /* Background inherited from body gradient (Phase 1 motion redesign). */
+  background: transparent;
   padding: var(--space-12) var(--space-6);
   z-index: 5;
   overflow: clip;

@@ -15,19 +15,28 @@ export default function BookingCTA() {
     if (reducedMotion || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const inner = sectionRef.current.querySelector('.booking-cta__inner');
+      const section = sectionRef.current;
+      const inner   = section.querySelector('.booking-cta__inner');
+      const label   = section.querySelector('.section-label');
+      const title   = section.querySelector('.booking-cta__title');
+      const text    = section.querySelector('.booking-cta__text');
+      const actions = section.querySelector('.booking-cta__actions');
 
-      gsap.set(inner, { opacity: 0, y: 35, scale: 0.98 });
+      gsap.set([label, title, text, actions], { opacity: 0, y: 30 });
+      gsap.set(inner, { opacity: 0 });
 
-      const tl = gsap.timeline({
+      gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          once: true,
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
         },
-      });
-
-      tl.to(inner, { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power3.out' });
+      })
+        .to(inner,   { opacity: 1, duration: 0.4, ease: 'power2.out' })
+        .to(label,   { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, '-=0.1')
+        .to(title,   { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.25')
+        .to(text,    { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, '-=0.2')
+        .to(actions, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, '-=0.15');
     }, sectionRef);
 
     return () => ctx.revert();

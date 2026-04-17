@@ -1,14 +1,20 @@
 .testimonials-section {
+  /* Background inherited from body gradient (Phase 1 motion redesign).
+     Gradient is held in a light taupe band through this section so reviews
+     stay perfectly legible. */
+  background: transparent;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-page);
+  padding: var(--space-20) 0;
+  gap: var(--space-10);
 }
 
 .testimonials-section__header {
   text-align: center;
-  margin-bottom: var(--space-10);
+  margin-bottom: var(--space-2);
 }
 
 .testimonials-section__rating {
@@ -21,12 +27,9 @@
 
 .testimonials-section__stars {
   display: flex;
+  align-items: center;
   gap: 2px;
-}
-
-.testimonials-section__star {
   color: var(--color-star);
-  font-size: var(--text-lg);
 }
 
 .testimonials-section__rating-text {
@@ -36,26 +39,142 @@
 
 .testimonials-section__rating-text strong {
   color: var(--color-text-primary);
+  font-weight: 600;
 }
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-6);
+/* ── Mini-scroll rail ─────────────────────────────────────────────────── */
+.testimonials-section__rail {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  /* Vertical breathing room so card shadows aren't clipped by the scroller. */
+  padding: var(--space-6) 0 var(--space-8);
+  /* Subtle scrollbar — visible enough to signal scrollability, calm enough
+     not to compete with the cards. */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(44, 36, 31, 0.18) transparent;
 }
 
-@media (max-width: 1024px) {
-  .testimonials-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.testimonials-section__rail::-webkit-scrollbar {
+  height: 6px;
+}
+
+.testimonials-section__rail::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.testimonials-section__rail::-webkit-scrollbar-thumb {
+  background: rgba(44, 36, 31, 0.18);
+  border-radius: var(--radius-full);
+}
+
+.testimonials-section__rail::-webkit-scrollbar-thumb:hover {
+  background: rgba(44, 36, 31, 0.32);
+}
+
+.testimonials-section__track {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-5);
+  /* Container-aligned padding on left, generous on right so the last card can
+     still snap to start without being clipped. */
+  padding: 0 max(var(--space-6), calc((100vw - var(--max-width)) / 2 + var(--space-6)))
+           0 max(var(--space-6), calc((100vw - var(--max-width)) / 2 + var(--space-6)));
+}
+
+.testimonials-section__track > * {
+  flex: 0 0 340px;
+  max-width: 340px;
+  scroll-snap-align: start;
 }
 
 @media (max-width: 640px) {
-  .testimonials-grid {
-    grid-template-columns: 1fr;
+  .testimonials-section__track > * {
+    flex-basis: 280px;
+    max-width: 280px;
+  }
+}
+
+/* ── Trust block (the close) ──────────────────────────────────────────── */
+.testimonials-section__trust {
+  margin: 0 auto;
+  max-width: 640px;
+  padding: var(--space-6) var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(44, 36, 31, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 30px rgba(44, 36, 31, 0.06);
+}
+
+.testimonials-section__trust-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.testimonials-section__trust-score {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.testimonials-section__trust-stars {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  color: var(--color-star);
+}
+
+.testimonials-section__trust-count {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin-left: var(--space-2);
+}
+
+.testimonials-section__trust-count strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.testimonials-section__trust-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-text-primary);
+  color: var(--color-bg-page);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-base), background var(--transition-base);
+  white-space: nowrap;
+}
+
+.testimonials-section__trust-link:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .testimonials-section__trust {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-5);
   }
 
-  .testimonials-section__rating {
-    flex-direction: column;
+  .testimonials-section__trust-rating {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

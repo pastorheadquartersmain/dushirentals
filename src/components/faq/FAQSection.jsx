@@ -16,22 +16,22 @@ export default function FAQSection() {
     if (reducedMotion || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const header = Array.from(sectionRef.current.querySelectorAll('.faq-section__header > *'));
-      const list = sectionRef.current.querySelector('.faq-section__list');
+      const section = sectionRef.current;
+      const header  = Array.from(section.querySelectorAll('.faq-section__header > *'));
+      const list    = section.querySelector('.faq-section__list');
 
       gsap.set(header, { opacity: 0, y: 30 });
-      gsap.set(list, { opacity: 0, y: 25 });
+      gsap.set(list,   { opacity: 0, y: 25 });
 
-      const tl = gsap.timeline({
+      gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          once: true,
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
         },
-      });
-
-      tl.to(header, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' })
-        .to(list, { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' }, '-=0.25');
+      })
+        .to(header, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' })
+        .to(list,   { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' }, '-=0.2');
     }, sectionRef);
 
     return () => ctx.revert();

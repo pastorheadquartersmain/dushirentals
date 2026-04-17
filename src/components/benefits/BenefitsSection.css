@@ -1,14 +1,15 @@
 .benefits-section {
+  /* Background inherited from body gradient (Phase 1 motion redesign). */
+  background: transparent;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-elevated);
 }
 
 .benefits-section__header {
   text-align: center;
-  margin-bottom: var(--space-10);
+  margin-bottom: var(--space-12);
 }
 
 .benefits-section__header .section-subtitle {
@@ -18,7 +19,7 @@
 .benefits-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 @media (max-width: 1024px) {
