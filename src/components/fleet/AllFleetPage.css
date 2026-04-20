@@ -1,3 +1,10 @@
+/* The fleet page is an inventory browse — light background so cards are
+   readable. Override the body gradient locally. */
+.all-fleet-page {
+  min-height: 100vh;
+  background: var(--color-bg-page);
+}
+
 .all-fleet-page__header {
   text-align: center;
   padding-bottom: 0;
